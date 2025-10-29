@@ -1,6 +1,6 @@
 # prep_portal
 
-A new Flutter project.
+An App Designed to Make Life Easy for Fairmont Prep Students
 
 ## Getting Started
 
