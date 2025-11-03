@@ -1,4 +1,4 @@
-# prep_portal
+# Prep Portal - APP
 
 An App Designed to Make Life Easy for Fairmont Prep Students
 
