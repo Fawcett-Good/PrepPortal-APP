@@ -17,7 +17,7 @@ class _MapScreenState extends State<MapScreen> {
 
   // rooms list
   final Set<String> _rooms = {
-    "1","2","11","12","21","22"
+    for (int i = 0; i < 200; i ++) i.toString(),
   };
 
   final TextEditingController _searchController = TextEditingController();
@@ -29,14 +29,14 @@ class _MapScreenState extends State<MapScreen> {
       _filteredRooms = _rooms
           .where((room) => room.toLowerCase().contains(query.toLowerCase()))
           .toList();
-      var roomNumberCompare=(String a,String b){
-        bool aFit=a.substring(0,query.length)==query;
-        bool bFit=b.substring(0,query.length)==query;
-        if (aFit && !bFit) return -1;
-        if (!aFit && bFit) return 1;
-
+      // sorting algorithm
+      _filteredRooms.sort((a, b) {
+        bool aStarts = a.startsWith(query);
+        bool bStarts = b.startsWith(query);
+        if (aStarts && !bStarts) return -1;
+        if (!aStarts && bStarts) return 1;
         return a.compareTo(b);
-      };
+      });
       for (int i = 0; i < _filteredRooms.length; i++) {
         _filteredRooms[i] = "Room ${_filteredRooms[i]}";
       }
