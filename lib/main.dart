@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prep_portal/login.dart';
 import 'home.dart';
 
 // run app
@@ -19,7 +20,8 @@ class PrepPortalApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainScreen(), // home screen
+      home: const LoginScreen(), // home screen
     );
   }
+
 }
