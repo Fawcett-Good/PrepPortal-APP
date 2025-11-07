@@ -17,7 +17,7 @@ class _MapScreenState extends State<MapScreen> {
 
   // rooms list
   final Set<String> _rooms = {
-    for (int i = 0; i < 1000; i++) i.toString(),
+    for (int i = 0; i < 200; i++) i.toString(),
   };
 
   final TextEditingController _searchController = TextEditingController();
@@ -25,7 +25,7 @@ class _MapScreenState extends State<MapScreen> {
 
   // update when search
   void _onSearchChanged(String query) {
-    const int NUM_SHOWN=4;//the amount shown on the searching bar
+    const int NUM_SHOWN=4; //the amount shown on the searching bar
     setState(() {
       _filteredRooms = _rooms
         //.where((room) => room.toLowerCase().contains(query.toLowerCase())) //if want to support
