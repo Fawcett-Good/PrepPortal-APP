@@ -17,7 +17,7 @@ class _MapScreenState extends State<MapScreen> {
 
   // rooms list
   final Set<String> _rooms = {
-    for (int i = 0; i < 200; i ++) i.toString(),
+    for (int i = 0; i < 200; i++) i.toString(),
   };
 
   final TextEditingController _searchController = TextEditingController();
@@ -25,22 +25,39 @@ class _MapScreenState extends State<MapScreen> {
 
   // update when search
   void _onSearchChanged(String query) {
+    const int NUM_SHOWN=4; //the amount shown on the searching bar
     setState(() {
       _filteredRooms = _rooms
-          .where((room) => room.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-      // sorting algorithm
-      _filteredRooms.sort((a, b) {
-        bool aStarts = a.startsWith(query);
-        bool bStarts = b.startsWith(query);
-        if (aStarts && !bStarts) return -1;
-        if (!aStarts && bStarts) return 1;
-        return a.compareTo(b);
-      });
-      for (int i = 0; i < _filteredRooms.length; i++) {
-        _filteredRooms[i] = "Room ${_filteredRooms[i]}";
-      }
+        //.where((room) => room.toLowerCase().contains(query.toLowerCase())) //if want to support
+        .toList();
 
+      int roomNumberCompare(String a,String b){
+        bool aFit=a.startsWith(query);
+        bool bFit=b.startsWith(query);
+        if (aFit && !bFit) return -1;
+        if (!aFit && bFit) return 1;
+
+        return a.compareTo(b);
+      }
+      final int listLength=_filteredRooms.length;
+      List<String> searchResultList=[];
+      for(int i=0;i<NUM_SHOWN&&i<listLength;i++){
+        String min=_filteredRooms[i];
+        int minIndex=i;
+        for(int j=i;j<listLength;j++){
+          if(roomNumberCompare(min,_filteredRooms[j])>0){
+            min=_filteredRooms[j];
+            minIndex=j;
+          }
+        }
+        _filteredRooms[minIndex]=_filteredRooms[i];
+        _filteredRooms[i]=min;
+        searchResultList.add(min);
+      }
+      for (int i = 0; i < searchResultList.length; i++) {
+        searchResultList[i] = "Room ${searchResultList[i]}";
+      }
+      _filteredRooms=searchResultList;
     });
   }
 
